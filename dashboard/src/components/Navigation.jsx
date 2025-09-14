@@ -1,4 +1,5 @@
 import React from 'react';
+import ConnectionStatus from './shared/ConnectionStatus';
 
 const Navigation = ({ activeSection, setActiveSection }) => {
   const menuItems = [
@@ -48,26 +49,22 @@ const Navigation = ({ activeSection, setActiveSection }) => {
         </ul>
 
         <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
-          <div className="flex items-center space-x-2 mb-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <div className="mb-3">
             <span className="text-sm font-medium text-gray-700">System Status</span>
           </div>
-          <div className="text-xs text-gray-600">
-            <div className="flex justify-between mb-1">
-              <span>Real-time Updates:</span>
-              <span className="text-green-600 font-medium">Active</span>
-            </div>
-            <div className="flex justify-between mb-1">
-              <span>Camera Access:</span>
-              <span className="text-green-600 font-medium">Ready</span>
-            </div>
-            <div className="flex justify-between mb-1">
-              <span>Data Sync:</span>
-              <span className="text-green-600 font-medium">Connected</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Last Update:</span>
-              <span className="text-gray-500">{new Date().toLocaleTimeString()}</span>
+          
+          <div className="space-y-2">
+            <ConnectionStatus />
+            
+            <div className="text-xs text-gray-600">
+              <div className="flex justify-between mb-1">
+                <span>Camera Access:</span>
+                <span className="text-green-600 font-medium">Ready</span>
+              </div>
+              <div className="flex justify-between mb-1">
+                <span>Data Sync:</span>
+                <span className="text-green-600 font-medium">Active</span>
+              </div>
             </div>
           </div>
         </div>

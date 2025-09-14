@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ErrorBoundary from './components/shared/ErrorBoundary';
 import Navigation from './components/Navigation';
 import RealTimeCarRentalDashboard from './components/RealTimeCarRentalDashboard';
 import InteractiveFleetManagement from './components/InteractiveFleetManagement';
@@ -30,11 +31,21 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
-      <main className="flex-1 p-6 overflow-auto">
-        <div className="max-w-7xl mx-auto">
-          {renderActiveSection()}
+    <ErrorBoundary>
+      <div className="flex min-h-screen bg-gray-50">
+        <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
+        <main className="flex-1 p-6 overflow-auto">
+          <div className="max-w-7xl mx-auto">
+            {renderActiveSection()}
+          </div>
+        </main>
+      </div>
+    </ErrorBoundary>
+  );
+}
+
+export default App;
+
         </div>
       </main>
     </div>
