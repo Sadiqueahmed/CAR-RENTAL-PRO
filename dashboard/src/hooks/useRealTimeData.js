@@ -1,57 +1,21 @@
 import { useState, useEffect } from 'react';
+import { vehicles as initialVehicles, bookings as initialBookings, customers as initialCustomers } from '../data/carRentalData';
 
 export const useRealTimeData = () => {
-  // Start with empty vehicles array - only user-added vehicles will appear
-  const [vehicles, setVehicles] = useState([]);
-  const [bookings, setBookings] = useState([
-    {
-      id: 'BK001',
-      customerId: 'CUST001',
-      vehicleId: 'VH001',
-      startDate: '2024-01-15',
-      endDate: '2024-01-20',
-      totalAmount: 12500,
-      status: 'confirmed'
-    },
-    {
-      id: 'BK002',
-      customerId: 'CUST002',
-      vehicleId: 'VH002',
-      startDate: '2024-01-18',
-      endDate: '2024-01-25',
-      totalAmount: 21000,
-      status: 'active'
-    }
-  ]);
-  const [customers, setCustomers] = useState([
-    {
-      id: 'CUST001',
-      name: 'Rajesh Kumar',
-      email: 'rajesh.kumar@email.com',
-      phone: '+91-9876543210',
-      totalBookings: 5,
-      totalSpent: 125000
-    },
-    {
-      id: 'CUST002',
-      name: 'Priya Sharma',
-      email: 'priya.sharma@email.com',
-      phone: '+91-9876543211',
-      totalBookings: 3,
-      totalSpent: 85000
-    }
-  ]);
+  // Use the initial data from carRentalData.js
+  const [vehicles, setVehicles] = useState(initialVehicles);
+  const [bookings, setBookings] = useState(initialBookings);
+  const [customers, setCustomers] = useState(initialCustomers);
   const [lastUpdate, setLastUpdate] = useState(new Date());
 
-  // Remove automatic vehicle status changes - keep vehicles static
+  // Keep the real-time update logic for bookings
   useEffect(() => {
     const interval = setInterval(() => {
       setLastUpdate(new Date());
       
-      // Only update bookings and customers, not vehicles
       setBookings(prevBookings => 
         prevBookings.map(booking => {
-          if (Math.random() < 0.1) { // 10% chance to update
+          if (Math.random() < 0.1) {
             const statuses = ['confirmed', 'active', 'completed'];
             const currentIndex = statuses.indexOf(booking.status);
             const nextStatus = statuses[(currentIndex + 1) % statuses.length];
@@ -60,7 +24,7 @@ export const useRealTimeData = () => {
           return booking;
         })
       );
-    }, 8000); // Update every 8 seconds
+    }, 8000);
 
     return () => clearInterval(interval);
   }, []);

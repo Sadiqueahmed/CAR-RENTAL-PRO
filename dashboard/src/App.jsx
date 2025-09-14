@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navigation from './components/Navigation';
 import RealTimeCarRentalDashboard from './components/RealTimeCarRentalDashboard';
-import InteractiveFleetManagement from './components/InteractiveFleetManagement';
+import InteractiveFleetManagement from './components/FleetManagement';
 import LiveBookingSystem from './components/LiveBookingSystem';
 import VehicleCheckInOut from './components/VehicleCheckInOut';
 import CustomerManagement from './components/CustomerManagement';
