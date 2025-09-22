@@ -236,10 +236,14 @@ export const useCarRentalStore = create(
       
       // Connection status actions
       setConnectionStatus: (status) => set((state) => {
-        state.connectionStatus = status;
-        state.isConnected = status === 'connected';
+        // Only update state if the status has actually changed
+        if (state.connectionStatus !== status) {
+            state.connectionStatus = status;
+            state.isConnected = status === 'connected';
+        }
+        // Always update the timestamp if connected, to show the connection is alive
         if (status === 'connected') {
-          state.lastUpdate = new Date();
+            state.lastUpdate = new Date();
         }
       }),
       
