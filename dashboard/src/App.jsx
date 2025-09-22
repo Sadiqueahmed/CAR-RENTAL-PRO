@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
+import Header from './components/Header';
 import Navigation from './components/Navigation';
 import RealTimeCarRentalDashboard from './components/RealTimeCarRentalDashboard';
-import InteractiveFleetManagement from './components/FleetManagement';
+import FleetManagement from './components/FleetManagement';
 import LiveBookingSystem from './components/LiveBookingSystem';
-import VehicleCheckInOut from './components/VehicleCheckInOut';
 import CustomerManagement from './components/CustomerManagement';
 import FinancialReports from './components/FinancialReports';
+import VehicleCheckInOut from './components/VehicleCheckInOut';
+import ErrorBoundary from './components/shared/ErrorBoundary';
 
 function App() {
   const [activeSection, setActiveSection] = useState('dashboard');
 
-  const renderActiveSection = () => {
+  const renderSection = () => {
     switch (activeSection) {
       case 'dashboard':
         return <RealTimeCarRentalDashboard />;
       case 'fleet':
-        return <InteractiveFleetManagement />;
+        return <FleetManagement />;
       case 'bookings':
         return <LiveBookingSystem />;
       case 'checkinout':
@@ -30,14 +32,17 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
-      <main className="flex-1 p-6 overflow-auto">
-        <div className="max-w-7xl mx-auto">
-          {renderActiveSection()}
+    <ErrorBoundary>
+      <div className="flex h-screen bg-gray-100 font-sans">
+        <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <Header />
+          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+            {renderSection()}
+          </main>
         </div>
-      </main>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
 
